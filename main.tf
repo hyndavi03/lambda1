@@ -40,7 +40,7 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.example.id
   }
   tags = {
-    Name = "RT"
+    Name = "RTB"
   }
 }
 
