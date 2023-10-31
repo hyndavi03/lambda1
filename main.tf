@@ -28,7 +28,7 @@ resource "aws_subnet" "private" {
 resource "aws_internet_gateway" "example" {
   vpc_id = aws_vpc.example.id
   tags = {
-    Name = "INTGW"
+    Name = "INGW"
   }
 }
 
