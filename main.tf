@@ -62,9 +62,9 @@ resource "aws_eip" "example" {}
 # Add the lambda resource here
 resource "aws_lambda_function" "example" {
   function_name = "MyLambdaFunction"
-  filename      = "lambda_function.zip"
+  filename      = "lambda-function.zip"
   role = aws_iam_role.lambda_exec.arn
-  handler = "lambda_function.lambda_handler"
+  handler = "lambda-function.lambda_handler"
   runtime = "python3.8"
 }
 
