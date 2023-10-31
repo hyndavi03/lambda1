@@ -61,7 +61,7 @@ resource "aws_eip" "example" {}
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "./lambda_function"  # Path to the directory containing your Lambda code
+  source_dir  = "./lambda_function.py"  # Path to the directory containing your Lambda code
   output_path = "./lambda_function.zip"
 }
 
