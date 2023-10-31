@@ -59,25 +59,30 @@ resource "aws_nat_gateway" "example" {
 
 resource "aws_eip" "example" {}
 
-# Add the lambda resource here
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_dir  = "./lambda_function"  # Path to the directory containing your Lambda code
+  output_path = "./lambda_function.zip"
+}
+
 resource "aws_lambda_function" "example" {
   function_name = "MyLambdafunction"
-  filename      = "lambda_function.zip"
-  role = aws_iam_role.lambda_exec.arn
-  handler = "lambda_function.lambda_handler"
-  runtime = "python3.8"
+  filename      = data.archive_file.lambda_zip.output_path
+  role          = aws_iam_role.lambda_exec.arn
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "python3.8"
 }
 
 resource "aws_iam_role" "lambda_exec" {
   name = "lambda-exec-role"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid = ""
+        Sid    = ""
         Principal = {
           Service = "lambda.amazonaws.com"
         }
@@ -93,4 +98,3 @@ terraform {
     region = "us-east-1"  # Replace with your preferred region
   }
 }
-
